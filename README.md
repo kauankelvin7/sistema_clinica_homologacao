@@ -1,148 +1,215 @@
-Sistema de Homologação de Atestados Médicos
+# Sistema de Homologação de Atestados Médicos
 
-📋 Descrição do Projeto
-O Sistema de Homologação de Atestados Médicos é uma aplicação desktop desenvolvida em Python com PyQt5, projetada para otimizar o processo de declaração e homologação de atestados médicos. Ele automatiza o preenchimento de documentos padronizados com dados de pacientes e médicos, armazenando essas informações localmente para facilitar futuras operações de preenchimento automático. O sistema oferece uma interface de usuário intuitiva e aprimorada esteticamente para uma experiência eficiente.
+## Visão Geral
 
-✨ Funcionalidades
-Entrada de Dados Simplificada: Interface clara para inserção de Nome do Paciente, CPF, Cargo, Empresa, CID do Atestado, Data do Atestado, Dias de Afastamento, Nome do Médico, Tipo de Registro (CRM, CRO, RMs), Número de Registro e UF.
+O Sistema de Homologação de Atestados Médicos é uma aplicação desktop desenvolvida em Python com framework PyQt5, destinada à automação e otimização do processo de declaração e homologação de atestados médicos em ambientes clínicos e administrativos.
 
-Preenchimento Automático Inteligente: Armazena dados de pacientes e médicos no banco de dados SQLite local. Ao digitar nomes ou CPFs/registros, o sistema sugere e preenche automaticamente os campos relacionados, agilizando o processo.
+A solução oferece preenchimento automatizado de documentos padronizados, armazenamento local de dados para reutilização e interface intuitiva para maximizar a eficiência operacional.
 
-Formatação de CPF: O campo de CPF na interface formata automaticamente a entrada para ###.###.###-##.
+## Recursos Principais
 
-Geração de Documentos DOCX: Preenche um modelo de documento .docx pré-existente com os dados inseridos, gerando uma declaração formatada e pronta para uso.
+### Gestão de Dados
+- **Entrada de dados estruturada** com validação de campos obrigatórios
+- **Armazenamento local** em banco SQLite para dados de pacientes e médicos
+- **Preenchimento automático** baseado em histórico de registros
+- **Formatação inteligente** de CPF e outros campos específicos
 
-Abertura Automática do Documento: Após a geração, o documento .docx é aberto imediatamente no editor padrão do sistema.
+### Geração de Documentos
+- **Preenchimento automatizado** de modelos DOCX pré-configurados
+- **Abertura automática** do documento gerado no editor padrão
+- **Padronização** de layout e formatação dos atestados
 
-Consulta Online (Híbrida): Um botão "Consultar Online" permite abrir o navegador na página de consulta do conselho correspondente (CRM, CRO, etc.), facilitando a validação manual dos registros (devido à presença de CAPTCHA e formulários POST em sites oficiais).
+### Interface e Usabilidade
+- **Design responsivo** com adaptação a diferentes resoluções
+- **Feedback em tempo real** através de barra de status
+- **Organização intuitiva** em seções funcionais
+- **Consulta online** integrada para validação de registros profissionais
 
-Interface Amigável e Otimizada: Design com cores suaves, botões intuitivos, organização em seções e barra de status para feedback em tempo real.
+### Distribuição
+- **Executável standalone** para implantação sem dependências
+- **Portabilidade** para diferentes ambientes Windows
 
-Responsividade Básica: Utiliza QScrollArea e QGridLayout para melhor adaptação a diferentes tamanhos de janela, com largura máxima de conteúdo para legibilidade.
+## Arquitetura Técnica
 
-Executável Distribuível: Pode ser empacotado como um único arquivo executável para fácil distribuição em outros computadores, sem a necessidade de instalação do Python.
+### Stack Tecnológico
+| Componente | Tecnologia | Propósito |
+|------------|------------|-----------|
+| Interface Gráfica | PyQt5 | Framework GUI principal |
+| Processamento de Documentos | python-docx | Manipulação de arquivos DOCX |
+| Banco de Dados | SQLite3 | Armazenamento local |
+| Empacotamento | PyInstaller | Geração de executável |
+| Processamento de Imagens | Pillow (PIL) | Manipulação de ícones e assets |
 
-🚀 Tecnologias Utilizadas
-Python 3.x
+### Estrutura de Dados
+- **Tabela Pacientes**: Nome, CPF, Cargo, Empresa
+- **Tabela Médicos**: Nome, Tipo de Registro, Número, UF
+- **Tabela Atestados**: CID, Data, Dias de Afastamento
 
-PyQt5: Para a construção da interface gráfica do usuário (GUI).
+## Instalação e Configuração
 
-python-docx: Para manipulação e preenchimento de documentos .docx.
+### Pré-requisitos
+- Python 3.8 ou superior
+- Sistema operacional Windows (recomendado)
+- Privilégios de administrador para instalação de dependências
 
-SQLite3: Banco de dados leve e embarcado para armazenamento local de dados de pacientes e médicos.
+### Configuração do Ambiente de Desenvolvimento
 
-PyInstaller: Para empacotar a aplicação em um executável.
+1. **Clone do Repositório**
+   ```bash
+   git clone https://github.com/kauankelvin7/sistema_clinica_homologacao
+   cd SistemaHomologacaoAtestado
+   ```
 
-Pillow (PIL): Biblioteca de processamento de imagens, utilizada pelo PyInstaller para manipular ícones.
+2. **Criação do Ambiente Virtual**
+   ```bash
+   python -m venv .venv
+   
+   # Windows PowerShell
+   .\.venv\Scripts\Activate.ps1
+   
+   # Windows CMD
+   .venv\Scripts\activate.bat
+   
+   # Linux/macOS
+   source .venv/bin/activate
+   ```
 
-⚙️ Instalação e Execução (Ambiente de Desenvolvimento)
-Siga estas instruções para configurar e executar o sistema em seu ambiente de desenvolvimento.
+3. **Instalação de Dependências**
+   ```bash
+   pip install -r requirements.txt
+   pip install Pillow  # Para suporte a ícones
+   ```
 
-Pré-requisitos
-Python 3.x instalado (recomenda-se Python 3.8+).
+### Configuração de Assets
 
-Passo a Passo
-Clone o Repositório (ou Baixe o Código):
+1. **Estrutura de Diretórios**
+   ```
+   projeto/
+   ├── models/
+   │   └── modelo homologação.docx
+   ├── assets/
+   │   └── app_logo.png (ou .ico)
+   ├── data/
+   │   └── homologacao.db (criado automaticamente)
+   └── main.py
+   ```
 
-Bash
+2. **Preparação de Arquivos**
+   - Coloque o modelo DOCX na pasta `models/`
+   - Adicione o logo/ícone na pasta `assets/`
+   - Verifique a correspondência de nomes no código
 
-git clone (https://github.com/kauankelvin7/sistema_clinica_homologacao)
-cd SistemaHomologacaoAtestado
-(Se você não usa Git, basta baixar a pasta do projeto e navegar até ela via terminal).
+### Execução
 
-Crie e Ative um Ambiente Virtual (Recomendado):
-É uma boa prática isolar as dependências do projeto.
-
-Bash
-
-python -m venv .venv
-Windows (PowerShell):
-
-PowerShell
-
-.\.venv\Scripts\Activate.ps1
-Windows (CMD):
-
-DOS
-
-.venv\Scripts\activate.bat
-Linux/macOS:
-
-Bash
-
-source .venv/bin/activate
-Instale as Dependências:
-Com o ambiente virtual ativado, instale as bibliotecas necessárias:
-
-Bash
-
-pip install -r requirements.txt
-# Certifique-se de que Pillow também está instalado para o PyInstaller
-pip install Pillow
-Se o requirements.txt não tiver Pillow ou pyinstaller, adicione e reinstale:
-
-PyQt5
-python-docx
-Pillow
-pyinstaller
-Prepare os Arquivos Essenciais:
-
-Crie uma pasta models/ na raiz do projeto e coloque seu arquivo de modelo modelo homologação.docx dentro dela.
-
-Crie uma pasta assets/ na raiz do projeto e coloque seu arquivo de logo (ex: app_logo.png ou app_icon.ico) dentro dela. Certifique-se de que o nome do arquivo no código (ui/main_window.py) corresponde ao nome do seu arquivo.
-
-Inicialize o Banco de Dados:
-A primeira vez que você executar a aplicação, ele criará automaticamente o arquivo homologacao.db na pasta data/ com a estrutura das tabelas. Se você já tinha um banco de dados SQLite e alterou a estrutura das tabelas (medicos), pode ser necessário deletar o data/homologacao.db para que a nova estrutura seja criada.
-
-Bash
-
-# Opcional: Se precisar recriar o banco de dados
-# Remove-Item -Path "data/homologacao.db" -ErrorAction SilentlyContinue # PowerShell
-# ou
-# del data\homologacao.db # CMD
-Execute o Sistema:
-Com o ambiente virtual ativado, execute o script principal:
-
-Bash
-
+```bash
 python main.py
-📦 Gerando um Executável
-Para criar uma versão independente do seu aplicativo que pode ser executada em outros PCs sem a instalação do Python, utilize o PyInstaller.
+```
 
-Certifique-se de que o PyInstaller e Pillow estão instalados no seu ambiente virtual (veja o passo 3 da instalação).
+## Geração de Executável
 
-Navegue até a pasta raiz do projeto no seu terminal (com o ambiente virtual ativado).
+### Processo de Build
 
-Execute o comando PyInstaller:
-
-PowerShell
-
+```powershell
 pyinstaller `
     --noconsole `
     --onefile `
-    --icon="assets/app_logo.ico" `  # Substitua pelo caminho real do seu arquivo .ico
+    --icon="assets/app_logo.ico" `
     --add-data "models;models" `
     --add-data "data\homologacao.db;data" `
     --add-data "data\generated_documents;data\generated_documents" `
     --add-data "assets;assets" `
     "main.py"
-Importante: Use o acento grave ( ` ) para quebrar as linhas no PowerShell. Se estiver no CMD, use o circunflexo ( ^ ). Ou, para simplificar, digite todo o comando em uma única linha.
+```
 
-Certifique-se de que assets/app_logo.ico é o nome correto do seu arquivo de ícone.
+### Parâmetros de Configuração
+- `--noconsole`: Execução sem janela de console
+- `--onefile`: Empacotamento em arquivo único
+- `--icon`: Ícone personalizado da aplicação
+- `--add-data`: Inclusão de arquivos de dados e assets
 
-Localize o Executável:
-O executável (main.exe no Windows) será gerado na pasta dist/ dentro do seu projeto.
+### Distribuição
+O executável gerado estará disponível em `dist/main.exe` e pode ser distribuído independentemente.
 
-Teste o Executável:
-Copie o main.exe (e, se não usar --onefile, a pasta dist inteira) para outro computador e execute-o.
+## Funcionalidades Detalhadas
 
-🤝 Contribuição
-Se você tiver sugestões para melhorias, sinta-se à vontade para:
+### Campos de Entrada
+| Campo | Tipo | Validação | Observações |
+|-------|------|-----------|-------------|
+| Nome do Paciente | Texto | Obrigatório | Auto-completar disponível |
+| CPF | Texto | Formato XXX.XXX.XXX-XX | Formatação automática |
+| Cargo | Texto | Opcional | Histórico mantido |
+| Empresa | Texto | Opcional | Histórico mantido |
+| CID | Texto | Obrigatório | Código de classificação |
+| Data do Atestado | Data | Obrigatório | Formato DD/MM/AAAA |
+| Dias de Afastamento | Número | Obrigatório | Valor inteiro positivo |
+| Nome do Médico | Texto | Obrigatório | Auto-completar disponível |
+| Tipo de Registro | Lista | CRM/CRO/RM | Seleção única |
+| Número de Registro | Texto | Obrigatório | Validação numérica |
+| UF | Lista | Estados brasileiros | Seleção única |
 
-Abrir uma Issue descrevendo a sugestão ou bug.
+### Operações Avançadas
+- **Consulta Online**: Integração com sites de conselhos profissionais
+- **Backup Automático**: Cópia de segurança do banco de dados
+- **Histórico de Documentos**: Registro de todos os atestados gerados
+- **Validação de Dados**: Verificação de integridade antes da geração
 
-Criar um Pull Request com as suas modificações.
+## Troubleshooting
 
-## 📄 Licença
+### Problemas Comuns
 
-Este projeto está licenciado sob a [MIT License](LICENSE.md) - veja o arquivo LICENSE.md para detalhes.
+**Erro de Dependências**
+```bash
+pip install --upgrade pip
+pip install -r requirements.txt --force-reinstall
+```
+
+**Problema de Banco de Dados**
+```bash
+# Remover banco corrompido
+del data\homologacao.db
+# Executar aplicação para recriar
+python main.py
+```
+
+**Erro de Modelo DOCX**
+- Verificar se o arquivo existe em `models/`
+- Confirmar permissões de leitura
+- Validar formato do documento
+
+## Contribuição
+
+### Diretrizes para Desenvolvimento
+1. **Padrões de Código**: Seguir PEP 8 para Python
+2. **Documentação**: Documentar funções e classes
+3. **Testes**: Incluir testes unitários quando aplicável
+4. **Versionamento**: Usar semantic versioning
+
+### Processo de Contribuição
+1. Fork do repositório
+2. Criação de branch para feature (`git checkout -b feature/nova-funcionalidade`)
+3. Commit das alterações (`git commit -am 'Adiciona nova funcionalidade'`)
+4. Push para o branch (`git push origin feature/nova-funcionalidade`)
+5. Criação de Pull Request
+
+### Reportar Issues
+- Usar o template de issue do GitHub
+- Incluir logs de erro quando relevante
+- Especificar ambiente de execução
+- Fornecer passos para reprodução
+
+## Suporte e Contato
+
+Para suporte técnico, dúvidas ou sugestões:
+- **Issues**: [GitHub Issues](https://github.com/kauankelvin7/sistema_clinica_homologacao/issues)
+- **Documentação**: Consulte este documento e comentários no código
+- **Atualizações**: Acompanhe o repositório para novas versões
+
+## Licença
+
+Este projeto está licenciado sob a MIT License. Consulte o arquivo `LICENSE.md` para detalhes completos sobre termos de uso, distribuição e modificação.
+
+---
+
+**Versão da Documentação**: 1.0  
+**Última Atualização**: Junho 2025  
+**Compatibilidade**: Python 3.8+, Windows 10+
